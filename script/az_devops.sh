@@ -40,8 +40,13 @@ fi
 
 echo "Creating service connection to GitHub: $service_connection_github"
 export AZURE_DEVOPS_EXT_GITHUB_PAT=$AZURE_DEVOPS_EXT_GITHUB_PAT
-# Script will continue if failed because using || true
-az devops service-endpoint github create --github-url $repo --name $service_connection_github || true
+github_connection_exist=$(az devops service-endpoint list --query "[].name" -o tsv | grep $service_connection_github)
+if [ -z $github_connection_exist ]
+then
+    az devops service-endpoint github create --github-url $repo --name $service_connection_github
+else
+    echo "$service_connection_github already exist"
+fi
 
 # Create a pipeline
 PL_name="PL_Terraform_Create_AKS"
