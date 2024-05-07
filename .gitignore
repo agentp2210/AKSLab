@@ -1,2 +1,12 @@
+# private key
 **\id_rsa
-**\*.tfstate
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+**/*.tfstate
+**/*.tfstate.*
+
+#tf plan file
+**/*tfplan*
