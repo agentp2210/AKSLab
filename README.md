@@ -9,3 +9,4 @@
 # Step 3: Create a Azure DevOps Org and a Project using the portal
 
 # Step 4: 
+./script/az_devops.sh

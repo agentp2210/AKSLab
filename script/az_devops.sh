@@ -40,7 +40,8 @@ fi
 
 echo "Creating service connection to GitHub: $service_connection_github"
 export AZURE_DEVOPS_EXT_GITHUB_PAT=$AZURE_DEVOPS_EXT_GITHUB_PAT
-az devops service-endpoint github create --github-url $repo --name $service_connection_github
+# Script will continue if failed because using || true
+az devops service-endpoint github create --github-url $repo --name $service_connection_github || true
 
 # Create a pipeline
 PL_name="PL_Terraform_Create_AKS"
