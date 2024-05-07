@@ -4,7 +4,7 @@
 ./script/az_login.sh
 
 # Step 2: Create the remote backend
-./script/create_backend.sh
+./script/create_tf_backend.sh
 
 # Step 3: Create a Azure DevOps Org and a Project using the portal
 

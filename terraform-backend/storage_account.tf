@@ -15,11 +15,3 @@ resource "azurerm_storage_container" "tfstate" {
   storage_account_name  = azurerm_storage_account.tfstate.name
   container_access_type = "blob"
 }
-
-output "storage_account_name" {
-  value = azurerm_storage_account.tfstate.name
-}
-
-output "container_name" {
-  value = azurerm_storage_container.tfstate.name
-}
