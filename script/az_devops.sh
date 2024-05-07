@@ -36,33 +36,32 @@ else
     echo "$service_connection_az already exist"
 fi
 
-
-
-echo "Creating service connection to GitHub: $service_connection_github"
 export AZURE_DEVOPS_EXT_GITHUB_PAT=$AZURE_DEVOPS_EXT_GITHUB_PAT
-github_connection_exist=$(az devops service-endpoint list --query "[].name" -o tsv | grep $service_connection_github)
-if [ -z $github_connection_exist ]
-then
-    az devops service-endpoint github create --github-url $repo --name $service_connection_github
-else
-    echo "$service_connection_github already exist"
-fi
+
+# Create an Azure Repo and import code from GitHub
+az_repo_id=$(az repos list --query "[].id" -o tsv)
+az_repo_name=$(az repos list --query "[].name" -o tsv)
+az repos import create --git-url $repo --repository $az_repo_id || true
+
+# Install Terraform extension
+az devops extension install --extension-id "custom-terraform-tasks" --publisher-id ms-devlabs
 
 # Create a pipeline
 PL_name="PL_Terraform_Create_AKS"
 pipeline_exist=$(az pipelines list --query "[].name" -o tsv | grep $PL_name)
 if [ -z $pipeline_exist]
 then
-    az pipelines create --org $org_url --project $project --name $PL_name \
-        --repository $repo --yml-path "pipelines/PL-Deploy-AKS.yaml" \
-        --service-connection $service_connection_az
+    connection_id=$(echo $(az devops service-endpoint list --query "[].{id:id, name:name}" -o tsv | grep $service_connection_github) | cut -d " " -f1)
+    az pipelines create --name $PL_name --skip-run true \
+        --repository $az_repo_name --branch main --repository-type tfsgit \
+        --yml-path "pipelines/PL-Deploy-AKS.yaml"
 else
     echo "$PL_name already exist"
 fi
 
 # Run the pipeline
-# backendAzureRmStorageAccountName=$(az storage account list -g $rg_name --query "[].name" -o tsv | grep "tfstate*")
-# az pipelines run --org $org_url --project $project --open true --name $PL_name \
-#     --variables "backendAzureRmResourceGroupName=$rg_name \
-#     backendAzureRmStorageAccountName=$backendAzureRmStorageAccountName"
+backendAzureRmStorageAccountName=$(az storage account list -g $rg_name --query "[].name" -o tsv | grep "tfstate*")
+az pipelines run --org $org_url --project $project --name $PL_name \
+    --variables "backendAzureRmResourceGroupName=$rg_name \
+    backendAzureRmStorageAccountName=$backendAzureRmStorageAccountName"
     
