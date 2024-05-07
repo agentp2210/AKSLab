@@ -10,3 +10,6 @@
 
 #tf plan file
 **/*tfplan*
+
+# terraform lock
+**/.terraform.lock.hcl
