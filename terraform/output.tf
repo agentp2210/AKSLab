@@ -45,3 +45,8 @@ output "node_resource_group" {
 output "node_resource_group_id" {
   value     = module.aks.node_resource_group_id
 }
+
+
+output "instrumentation_key" {
+  value = module.appinsights.instrumentation_key
+}
