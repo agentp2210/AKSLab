@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: aspnetcore
-        image: devopsjourneyacr.azurecr.io/aspnet:latest
+        image: myaksclusteracr18691.azurecr.io/aspnet:latest
         imagePullPolicy: Always
         resources:
           requests:
@@ -53,9 +53,12 @@ metadata:
     kubernetes.io/ingress.class: azure/application-gateway
 spec:
   rules:
-    - http:
-        paths:
-          - path: /
-            backend:
-              serviceName: aspnetcore
-              servicePort: 80
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: aspnetcore
+            port:
+              number: 80
