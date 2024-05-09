@@ -1,5 +1,5 @@
 # private key
-**\id_rsa
+**/id_rsa
 
 # Local .terraform directories
 **/.terraform/*
@@ -13,3 +13,6 @@
 
 # terraform lock
 **/.terraform.lock.hcl
+
+# kubeconfig
+**/kubeconfig
