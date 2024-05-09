@@ -30,9 +30,11 @@ module "aks" {
   location                   = var.location
   ssh_public_key             = file(var.ssh_public_key)
   log_analytics_workspace_id = module.loganalytics.id
-  aks_subnet_id                 = module.vnet_aks.aks_subnet_id
+  aks_subnet_id              = module.vnet_aks.aks_subnet_id
   agic_subnet_id             = module.vnet_aks.appgw_subnet_id
-  environment = var.environment
+  client_id                  = var.client_id
+  client_secret              = var.client_secret
+  environment                = var.environment
 }
 
 module "acr" {
@@ -43,13 +45,3 @@ module "acr" {
   environment = var.environment
 }
 
-resource "azurerm_role_assignment" "aks-acr-rg" {
-  scope                = module.acr.acr_id
-  role_definition_name = "Acrpull"
-  principal_id         = module.aks.kubelet_object_id
-
-  depends_on = [
-     module.aks,
-     module.acr
-  ]
-}

@@ -9,6 +9,14 @@ variable "location" {
 variable "rg_id" {
 }
 
+
+variable "client_id" {
+}
+
+variable "client_secret" {
+}
+
+
 variable "log_analytics_workspace_name" {
 }
 
