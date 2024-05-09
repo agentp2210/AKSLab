@@ -16,15 +16,15 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: aspnetcore
-        image: myaksclusteracr50092.azurecr.io/dotnet/sampleapp:latest
+        image: myAKSClusterACR50092.azurecr.io/dotnet/sampleapp:latest
         imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 128Mi
+        #   limits:
+        #     cpu: 250m
+        #     memory: 256Mi
         ports:
         - containerPort: 80
         env:
