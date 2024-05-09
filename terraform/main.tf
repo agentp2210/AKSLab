@@ -42,3 +42,14 @@ module "acr" {
   resource_group_name = var.resource_group_name
   environment = var.environment
 }
+
+resource "azurerm_role_assignment" "aks-acr-rg" {
+  scope                = module.acr.acr_id
+  role_definition_name = "Acrpull"
+  principal_id         = module.aks.kubelet_object_id
+
+  depends_on = [
+     module.aks,
+     module.acr
+  ]
+}
