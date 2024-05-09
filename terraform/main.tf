@@ -48,6 +48,7 @@ module "acr" {
 module "appinsights" {
   source           = "./modules/appinsights"
   name             = var.app_insights_name
+  resource_group_name        = var.resource_group_name
   location         = var.location
   environment      = var.environment
   application_type = var.application_type
