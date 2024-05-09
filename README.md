@@ -10,4 +10,7 @@
 ./script/create_AKS.sh
 
 # Step 4: Build docker image and push to ACR
+./script/pushToACR.sh
 
+# Step 5: Deploy to AKS
+./script/deploy_to_aks.sh
