@@ -49,4 +49,5 @@ output "node_resource_group_id" {
 
 output "instrumentation_key" {
   value = module.appinsights.instrumentation_key
+  sensitive = true
 }
