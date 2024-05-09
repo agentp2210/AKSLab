@@ -16,7 +16,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: aspnetcore
-        image: myaksclusteracr18691.azurecr.io/dotnet/sampleapp:latest
+        image: myaksclusteracr50092.azurecr.io/dotnet/sampleapp:latest
         imagePullPolicy: Always
         resources:
           requests:
