@@ -20,3 +20,7 @@ ssh_public_key     = "./sshkey/id_rsa.pub"
 acr_name = "myAKSClusterACR"
 
 environment = "dev"
+
+# App Insights
+app_insights_name = "devopsjourney"
+application_type  = "web"
