@@ -7,6 +7,8 @@ location=$(az group list --query "[].location" -o tsv)
 
 # Create a storage account for Terraform remnote backend
 cd ../terraform-backend
+rm -r .terraform
+rm terraform.tfstate
 terraform init
 terraform plan -var="resource_group_name=$rg_name" -var="rg_id=$rg_id" -var="location=$location" -out plan.tfplan
 terraform apply plan.tfplan
@@ -18,6 +20,8 @@ container_name=$(terraform output container_name | tr -d '"')
 
 # Use the remote backend in the main configuration
 cd ../terraform
+rm -r .terraform
+
 terraform init \
     -backend-config="resource_group_name=$rg_name" \
     -backend-config="storage_account_name=$storage_account_name" \

@@ -6,7 +6,8 @@
 # Step 2: Create the remote backend
 ./script/create_tf_backend.sh
 
-# Step 3: Create a Azure DevOps Org and a Project using the portal
+# Step 3: Create AKS cluster
+./script/create_AKS.sh
 
-# Step 4: 
-./script/az_devops.sh
+# Step 4: Deploy app
+
