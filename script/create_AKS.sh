@@ -15,10 +15,14 @@ terraform plan -var="client_id=$sp_id" -var="client_secret=$sp_secret" \
 terraform apply aks.tfplan
 
 # Configure kube config after AKS cluster is created
-kube_config=kubeconfig
-terraform output kube_config > $kube_config
-sed -i '1d' $kube_config
-sed -i '$d' $kube_config
-export KUBECONFIG="./$kube_config"
+# kube_config=kubeconfig
+# terraform output kube_config > $kube_config
+# sed -i '1d' $kube_config
+# sed -i '$d' $kube_config
+# export KUBECONFIG="./$kube_config"
+
+cluster_name=$(az aks list --query "[].name" -o tsv)
+az aks get-credentials --name $cluster_name --resource-group $rg_name --overwrite-existing
+
 
 kubectl get node
