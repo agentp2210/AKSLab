@@ -9,5 +9,5 @@
 # Step 3: Create AKS cluster
 ./script/create_AKS.sh
 
-# Step 4: Deploy app
+# Step 4: Build docker image and push to ACR
 
