@@ -3,9 +3,10 @@ output "kube_config" {
   sensitive = true
 }
 
-output "kubelet_object_id" {
-  value = module.aks.kubelet_object_id
-}
+# This is only required when using "managed identity"
+# output "kubelet_object_id" {
+#   value = module.aks.kubelet_object_id
+# }
 
 output "client_key" {
   value     = module.aks.client_key
