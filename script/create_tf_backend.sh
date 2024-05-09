@@ -29,11 +29,4 @@ terraform init \
     -backend-config="key=terraform.tfstate"
 
 
-# Configure kube config after AKS cluster is created
-# kube_config=kubeconfig
-# terraform output kube_config > $kube_config
-# sed -i '1d' $kube_config
-# sed -i '$d' $kube_config
-# export KUBECONFIG="./$kube_config"
 
-# kubectl get node
